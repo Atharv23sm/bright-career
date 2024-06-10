@@ -9,6 +9,7 @@ import Header from '../partials/Header'
 import Footer from '../partials/Footer'
 import ArrowLeft from '../component/ArrowLeft'
 import ProfilePic from '../component/ProfilePic'
+import Loading from '../Loading'
 
 function Profile() {
 
@@ -29,9 +30,11 @@ function Profile() {
     const [imgFile, setImgFile] = useState(null)
     const [error, setError] = useState('')
     const [isIpDis, setIsIpDis] = useState(true)
+    const [isLoading, setIsLoading] = useState(false)
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+        setIsLoading(true)
 
         const formdata = new FormData()
         formdata.append('file', imgFile)
@@ -51,12 +54,14 @@ function Profile() {
 
         if (response.data.status == 'error') {
             setError(response.data.message)
+            setIsLoading(false)
         }
         else {
             sessionStorage.setItem('token', response.data.token)
             sessionStorage.setItem('token2', response.data.token2)
             setUserInfo(response.data.userInfo)
             setIsIpDis(true)
+            setIsLoading(false)
         }
     }
 
@@ -66,111 +71,113 @@ function Profile() {
         <>
             <Header />
 
-            <div className='w-full flex flex-col px-4 md:px-[10vw] py-28 gap-10'>
+            {isLoading ? <Loading /> :
 
-                <ArrowLeft />
+                <div className='w-full flex flex-col px-4 md:px-[10vw] py-28 gap-10'>
 
-                <div>
+                    <ArrowLeft />
 
-                    <form onSubmit={handleSubmit} className='flex flex-col items-center gap-10 bg-[#111] p-4 md:p-10'>
+                    <div>
 
-                        {!isIpDis ?
-                            <div className='flex items-center gap-5'>
-                                <input type="file" id='imgUpload' className='hidden'
-                                    accept="image/jpeg, image/jpg"
-                                    onChange={
-                                        e => setImgFile(e.target.files[0])
-                                    } />
-                                <label htmlFor="imgUpload" className='p-20 border-[1px]'><FaPen></FaPen></label>
+                        <form onSubmit={handleSubmit} className='flex flex-col items-center gap-10 bg-[#111] p-4 md:p-10'>
+
+                            {!isIpDis ?
+                                <div className='flex items-center gap-5'>
+                                    <input type="file" id='imgUpload' className='hidden'
+                                        accept="image/jpeg, image/jpg"
+                                        onChange={
+                                            e => setImgFile(e.target.files[0])
+                                        } />
+                                    <label htmlFor="imgUpload" className='p-20 border-[1px]'><FaPen></FaPen></label>
+                                </div>
+                                :
+                                <ProfilePic ppname={userInfo.propfilepicname} />
+                            }
+
+                            <div className='w-full flex flex-col gap-4'>
+
+                                {[['text', userInfo.name, newName, setNewName, 'Name'], ['text', userInfo.about, newAbout, setNewAbout, 'About'],
+                                ['email', userInfo.email, newEmail, setNewEmail, 'Email'], ['select', userInfo.role, newRole]].map(
+                                    (item) => {
+                                        if (item[0] != 'select') {
+                                            return (
+                                                <>
+                                                    <input type={item[0]} value={isIpDis ? item[1] : item[2]} disabled={isIpDis ? 'disabled' : ''} placeholder={item[4]}
+                                                        onChange={(e) => {
+                                                            item[3](e.target.value)
+                                                            setError("")
+                                                        }} className={` bg-[#282828] w-full ${!isIpDis ? 'border-[1px] border-[#aaa]' : ""}  p-[10px]`} required />
+                                                </>)
+                                        }
+                                        else {
+                                            return (
+                                                <select value={isIpDis ? item[1] : item[2]} disabled={isIpDis ? 'disabled' : ''}
+                                                    className={`py-4 px-2 bg-[#333] w-full ${!isIpDis ? 'border-[1px] border-[#aaa]' : ""} 
+                                              placeholder:text-white`}
+                                                    onChange={(e) => { setNewRole(e.target.value); setError("") }}>
+                                                    <option className="" value={''}>Role</option>
+                                                    <option className='option' value={'Open to work'}>Open to work</option>
+                                                    <option className='option' value={'Hiring'}>Hiring</option>
+                                                </select>
+                                            )
+                                        }
+                                    }
+                                )
+                                }
                             </div>
-                            :
-                            <ProfilePic ppname={userInfo.propfilepicname} />
-                        }
 
-                        <div className='w-full flex flex-col gap-4'>
+                            <div className='w-full flex flex-col gap-4'>
 
-                            {[['text', userInfo.name, newName, setNewName, 'Name'], ['text', userInfo.about, newAbout, setNewAbout, 'About'],
-                            ['email', userInfo.email, newEmail, setNewEmail, 'Email'], ['select', userInfo.role, newRole]].map(
-                                (item) => {
-                                    if (item[0] != 'select') {
+                                {[['text', userInfo.address, newAddress, setNewAddress, 'Address'], ['text', userInfo.education, newEducation, setNewEducation, 'Education'],
+                                ['text', userInfo.skills, newSkills, setNewSkills, 'Skills'], ['text', userInfo.activity, newActivity, setNewActivity, 'Activity'],
+                                ['text', userInfo.experience, newExperience, setNewExperience, 'Experience']].map(
+                                    (item, index) => {
                                         return (
-                                            <>
+                                            <div>
                                                 <input type={item[0]} value={isIpDis ? item[1] : item[2]} disabled={isIpDis ? 'disabled' : ''} placeholder={item[4]}
                                                     onChange={(e) => {
                                                         item[3](e.target.value)
                                                         setError("")
-                                                    }} className={` bg-[#282828] w-full ${!isIpDis ? 'border-[1px] border-[#aaa]' : ""}  p-[10px]`} required />
-                                            </>)
-                                    }
-                                    else {
-                                        return (
-                                            <select value={isIpDis ? item[1] : item[2]} disabled={isIpDis ? 'disabled' : ''}
-                                                className={`py-4 px-2 bg-[#333] w-full ${!isIpDis ? 'border-[1px] border-[#aaa]' : ""} 
-                                              placeholder:text-white`}
-                                                onChange={(e) => { setNewRole(e.target.value); setError("") }}>
-                                                <option className="" value={''}>Role</option>
-                                                <option className='option' value={'Open to work'}>Open to work</option>
-                                                <option className='option' value={'Hiring'}>Hiring</option>
-                                            </select>
+                                                    }} className={`bg-[#282828] w-full ${!isIpDis ? 'border-[1px] border-[#aaa]' : ""} p-2`} key={index} />
+                                            </div>
                                         )
                                     }
+                                )
                                 }
-                            )
-                            }
-                        </div>
+                            </div>
 
-                        <div className='w-full flex flex-col gap-4'>
+                            <div className='text-[#f33] font-bold'>{error}</div>
 
-                            {[['text', userInfo.address, newAddress, setNewAddress, 'Address'], ['text', userInfo.education, newEducation, setNewEducation, 'Education'],
-                            ['text', userInfo.skills, newSkills, setNewSkills, 'Skills'], ['text', userInfo.activity, newActivity, setNewActivity, 'Activity'],
-                            ['text', userInfo.experience, newExperience, setNewExperience, 'Experience']].map(
-                                (item, index) => {
-                                    return (
-                                        <div>
-                                            <input type={item[0]} value={isIpDis ? item[1] : item[2]} disabled={isIpDis ? 'disabled' : ''} placeholder={item[4]}
-                                                onChange={(e) => {
-                                                    item[3](e.target.value)
-                                                    setError("")
-                                                }} className={`bg-[#282828] w-full ${!isIpDis ? 'border-[1px] border-[#aaa]' : ""} p-2`} key={index} />
-                                        </div>
-                                    )
-                                }
-                            )
-                            }
-                        </div>
+                            <div className='flex gap-6'>
+                                {isIpDis && (
+                                    <div onClick={() =>
+                                        setIsIpDis(false)
+                                    } className='p-[10px] cursor-pointer border-[2px] text-white rounded-full w-max hover:bg-[#444] duration-500'>Edit Profile</div>
+                                )}
 
-                        <div className='text-[#f33] font-bold'>{error}</div>
-
-                        <div className='flex gap-6'>
-                            {isIpDis && (
-                                <div onClick={() =>
-                                    setIsIpDis(false)
-                                } className='p-[10px] cursor-pointer border-[2px] text-white rounded-full w-max hover:bg-[#444] duration-500'>Edit Profile</div>
-                            )}
-
-                            {!isIpDis && (
-                                <button className='p-[10px] cursor-pointer bg-[#fe0] hover:bg-[#ff7] duration-500 border-[1px] border-black text-black rounded-full w-max' type='submit'
-                                >Save</button>
-                            )}
-                            {!isIpDis && (
-                                <div onClick={() => {
-                                    setIsIpDis(true)
-                                    setError("")
-                                }
-                                } className='p-[10px] cursor-pointer border-[1px] rounded-full w-max'>Cancel</div>
-                            )}
-                        </div>
-                    </form>
+                                {!isIpDis && (
+                                    <button className='p-[10px] cursor-pointer bg-[#fe0] hover:bg-[#ff7] duration-500 border-[1px] border-black text-black rounded-full w-max' type='submit'
+                                    >Save</button>
+                                )}
+                                {!isIpDis && (
+                                    <div onClick={() => {
+                                        setIsIpDis(true)
+                                        setError("")
+                                    }
+                                    } className='p-[10px] cursor-pointer border-[1px] rounded-full w-max'>Cancel</div>
+                                )}
+                            </div>
+                        </form>
+                    </div>
+                    <div onClick={() => {
+                        if (confirm('Are you sure? you\'re logging out.')) {
+                            sessionStorage.removeItem('token');
+                            sessionStorage.removeItem('token2');
+                            navigate('/login');
+                        }
+                    }} className='flex gap-2 items-center ml-1 cursor-pointer'><FaRegWindowClose />Logout</div>
                 </div>
-                <div onClick={() => {
-                    if (confirm('Are you sure? you\'re logging out.')) {
-                        sessionStorage.removeItem('token');
-                        sessionStorage.removeItem('token2');
-                        navigate('/login');
-                    }
-                }} className='flex gap-2 items-center ml-1 cursor-pointer'><FaRegWindowClose />Logout</div>
-            </div>
-
+            }
             <Footer />
         </>
     )
