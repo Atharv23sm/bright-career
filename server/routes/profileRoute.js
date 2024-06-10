@@ -16,13 +16,13 @@ router.post('/profile', async (req, res) => {
       return res.json({ status: 'error', message: 'email exists' })
     }
 
-    const imageUrl='';
+    // const imageUrl='';
   
     cloudinary.uploader.upload(img.path, (error, result) => {
       if (error) {
         return res.status(500).json({ message: 'Upload failed', error: error });
       }
-     imageUrl = result.secure_url
+    //  imageUrl = result.secure_url
     });
 
     await user.findOneAndUpdate({ email: userInfo.oldUserEmail }, { name: userInfo.name, email: userInfo.email })
@@ -33,7 +33,7 @@ router.post('/profile', async (req, res) => {
         email: userInfo.email, role: userInfo.role,
         address: userInfo.address, education: userInfo.education,
         activity: userInfo.activity, skills: userInfo.skills, experience: userInfo.experience,
-        profilepicname: (img ? imageUrl : userInfo.profilepicname)
+        profilepicname: (img ? cloudinary.url(img.id) : userInfo.profilepicname)
       })
   
     const updatedUser = await user.findOne({ email: userInfo.email })
