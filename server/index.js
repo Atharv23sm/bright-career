@@ -9,12 +9,9 @@ const app = express();
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json());
 app.use(cors());
-app.use(express.static(path.join(__dirname, 'profilepictures')));
 
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'profilepictures')
-  },
+
   filename: (req, file, cb) => {
     cb(null, Date.now() + path.extname(file.originalname))
   }
