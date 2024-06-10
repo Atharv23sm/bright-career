@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from 'react'
 import { jwtDecode } from 'jwt-decode'
 import { Navigate, useNavigate } from 'react-router-dom'
-import { FaMapMarkerAlt, FaCalendar, FaRupeeSign, FaBuilding, FaMailBulk, FaSuitcase, FaAngleDown } from 'react-icons/fa'
+import { FaMapMarkerAlt, FaCalendar, FaRupeeSign, FaBuilding, FaMailBulk, FaAngleDown, FaBriefcase } from 'react-icons/fa'
 import { BASE_URL } from '../url'
 import Header from '../partials/Header'
 import ArrowLeft from '../component/ArrowLeft'
@@ -176,7 +176,7 @@ function Hire() {
                                             <div className='flex flex-wrap gap-4 items-center'>
                                                 <div className='flex gap-2 items-center'><FaRupeeSign /> {item.payment} </div>
                                                 <div>|</div>
-                                                <div className='flex gap-2 items-center'><FaSuitcase /> {item.experience} </div>
+                                                <div className='flex gap-2 items-center'><FaBriefcase /> {item.experience} </div>
                                                 <div>|</div>
                                                 <div className='flex gap-2 items-center'> <FaBuilding /> {item.workmode} </div>
 
