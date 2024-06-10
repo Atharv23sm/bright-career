@@ -15,15 +15,8 @@ router.post('/profile', async (req, res) => {
     if (exist_email && userInfo.oldUserEmail != userInfo.email) {
       return res.json({ status: 'error', message: 'email exists' })
     }
-
-    // const imageUrl='';
   
-    cloudinary.uploader.upload(img.path, (error, result) => {
-      if (error) {
-        return res.status(500).json({ message: 'Upload failed', error: error });
-      }
-    //  imageUrl = result.secure_url
-    });
+    cloudinary.uploader.upload(img.path)
 
     await user.findOneAndUpdate({ email: userInfo.oldUserEmail }, { name: userInfo.name, email: userInfo.email })
   
@@ -33,7 +26,7 @@ router.post('/profile', async (req, res) => {
         email: userInfo.email, role: userInfo.role,
         address: userInfo.address, education: userInfo.education,
         activity: userInfo.activity, skills: userInfo.skills, experience: userInfo.experience,
-        profilepicname: (img ? cloudinary.url(img.id) : userInfo.profilepicname)
+        profilepicname: (img ? img.filename : userInfo.profilepicname)
       })
   
     const updatedUser = await user.findOne({ email: userInfo.email })
