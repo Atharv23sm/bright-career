@@ -4,10 +4,8 @@ const jwt = require('jsonwebtoken');
 
 const user = require('../models/users');
 const userinfo = require('../models/userInfo');
-const  cloudinary  = require('../utils/cloudinary');
 
 router.post('/profile', async (req, res) => {
-
     const img = req.file
     const userInfo = req.body
     const exist_email = await user.findOne({ email: userInfo.email })
@@ -16,8 +14,6 @@ router.post('/profile', async (req, res) => {
       return res.json({ status: 'error', message: 'email exists' })
     }
   
-    cloudinary.uploader.upload(img.path)
-
     await user.findOneAndUpdate({ email: userInfo.oldUserEmail }, { name: userInfo.name, email: userInfo.email })
   
     await userinfo.findOneAndUpdate({ email: userInfo.oldUserEmail },
