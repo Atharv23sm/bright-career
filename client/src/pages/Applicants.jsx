@@ -8,17 +8,20 @@ import Header from '../partials/Header'
 import ArrowLeft from '../component/ArrowLeft'
 import Footer from '../partials/Footer'
 import ProfilePic from '../component/ProfilePic'
+import Loading from '../Loading'
 
 function Applicants() {
 
     const [applicants, setApplicants] = useState([])
-
+    const [isLoading, setIsLoading] = useState(false)
     const loc = useLocation()
     const jobpostId = loc.state
 
     const getApplicants = async () => {
+        setIsLoading(true)
         const response = await axios.post(`${BASE_URL}/applicants`, { jobpostId })
         if (response.data.status == 'success') {
+            setIsLoading(false)
             setApplicants(response.data.applicants)
         }
     }
@@ -34,61 +37,65 @@ function Applicants() {
         <>
             <Header />
 
-            <div className='px-3 md:px-20 py-24 flex flex-col gap-10'>
+            {isLoading ? <Loading /> :
 
-                <ArrowLeft />
+                <div className='px-3 md:px-20 py-24 flex flex-col gap-10'>
 
-                <div>Total {applicants.length} applicants</div>
+                    <ArrowLeft />
 
-                <div className='flex flex-col gap-12 md:px-20' >
+                    <div>Total {applicants.length} applicants</div>
 
-                    {applicants.map(
-                        (item) => {
+                    <div className='flex flex-col gap-12 md:px-20' >
 
-                            return (
-                                <div className='px-4 md:px-8 py-10 bg-[#111] flex flex-col gap-6' key={item._id}>
+                        {applicants.map(
+                            (item) => {
 
-                                    <div className='flex flex-col gap-4 items-center'>
-                                        <ProfilePic ppname={item.profilepicname} />
-                                        <div className='text-[20px]'>{item.name}</div>
+                                return (
+                                    <div className='px-4 md:px-8 py-10 bg-[#111] flex flex-col gap-6' key={item._id}>
+
+                                        <div className='flex flex-col gap-4 items-center'>
+                                            <ProfilePic ppname={item.profilepicname} />
+                                            <div className='text-[20px]'>{item.name}</div>
+                                        </div>
+
+                                        <hr />
+                                        <div className='flex flex-wrap gap-4 justify-center'>
+                                            <div className='flex gap-2 items-center'><FaEnvelope />{item.email}</div>
+                                            <div>|</div>
+                                            <div className='flex gap-2 items-center'><FaMapMarkerAlt />{item.address}</div>
+                                        </div>
+
+                                        <div className='flex flex-wrap gap-4 justify-center'>
+                                            <div className='flex gap-2 items-center'><FaGraduationCap />{item.education}</div>
+                                            <div>|</div>
+                                            <div className='flex gap-2 items-center'><FaBriefcase />{item.experience}</div>
+                                        </div>
+
+                                        {[['About', item.about], ['Skills', item.skills], ['Acitivity', item.activity]].map(
+                                            (usr) => {
+                                                return (
+                                                    <>
+                                                        <hr />
+                                                        <div className='flex flex-col items-center gap-3'>
+                                                            <div className='font-bold tracking-wide'>{usr[0]}</div>
+                                                            <div>{usr[1]}</div>
+                                                        </div>
+                                                    </>
+                                                )
+                                            }
+                                        )}
+
                                     </div>
-
-                                    <hr />
-                                    <div className='flex flex-wrap gap-4 justify-center'>
-                                        <div className='flex gap-2 items-center'><FaEnvelope />{item.email}</div>
-                                        <div>|</div>
-                                        <div className='flex gap-2 items-center'><FaMapMarkerAlt />{item.address}</div>
-                                    </div>
-
-                                    <div className='flex flex-wrap gap-4 justify-center'>
-                                        <div className='flex gap-2 items-center'><FaGraduationCap />{item.education}</div>
-                                        <div>|</div>
-                                        <div className='flex gap-2 items-center'><FaBriefcase />{item.experience}</div>
-                                    </div>
-
-                                    {[['About', item.about], ['Skills', item.skills], ['Acitivity', item.activity]].map(
-                                        (usr) => {
-                                            return (
-                                                <>
-                                                    <hr />
-                                                    <div className='flex flex-col items-center gap-3'>
-                                                        <div className='font-bold tracking-wide'>{usr[0]}</div>
-                                                        <div>{usr[1]}</div>
-                                                    </div>
-                                                </>
-                                            )
-                                        }
-                                    )}
-
-                                </div>
-                            )
+                                )
+                            }
+                        )
                         }
-                    )
-                    }
+
+                    </div>
 
                 </div>
 
-            </div>
+            }
 
             <Footer />
 
