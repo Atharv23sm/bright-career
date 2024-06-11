@@ -45,7 +45,7 @@ function Home() {
             <div className='h-screen w-full flex justify-center items-center py-20 md:px-5'>
               <div className='w-max relative flex items-center justify-center'>
                 <div className='absolute p-2 md:p-6 text-center text-[7vw] md:text-[5vw] lg:text-[3vw] z-20'>Ready to assemble your<br />DREAM TEAM?</div>
-                <HomeButton link='hire' text='Hire' />
+                <HomeButton link='hire' text='Hire' className='bottom-4'/>
                 <div className='relative flex justify-center items-center'>
                   <img src={home1} alt="Landing image"
                     className='md:rounded-2xl' />
@@ -58,7 +58,7 @@ function Home() {
             <div className='py-24 flex justify-center relative'>
               <img src={home2} alt="Landing image" />
               <div className='absolute text-center text-black top-32 text-[20px] leading-[20px] backdrop-blur p-2 rounded-xl bg-[]'>Eager for a career shift <br /> or <br />Seeking standout candidate?</div>
-              <HomeButton link='profile' text='Set your role' />
+              <HomeButton link='profile' text='Set your role' className='bottom-32'/>
             </div>
         }
       </div>
