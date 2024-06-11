@@ -116,18 +116,18 @@ router.post('/apply', async (req, res) => {
 
     const existjob = await hiringdb.find({ _id: jobpostId })
 
-    if (existjob.hirer_email==hirer_email) {
+    if (existjob.hirer_email == hirer_email) {
       await applicantdb.create({
         jobpostId,
         hirer_email,
         applicant_email
       })
 
-    return res.json({ status: "success" })
+      return res.json({ status: "success" })
     }
 
-    else{
-      return res.json({status:'error', message:'Jobpost is unavailable'})
+    else {
+      return res.json({ status: 'error', message: 'Jobpost is unavailable' })
     }
 
 

@@ -49,7 +49,7 @@ function Applicants() {
                                 <div className='px-4 md:px-8 py-10 bg-[#111] flex flex-col gap-6' key={item._id}>
 
                                     <div className='flex flex-col gap-4 items-center'>
-                                        <ProfilePic ppname={item.profilepicname}/>
+                                        <ProfilePic ppname={item.profilepicname} />
                                         <div className='text-[20px]'>{item.name}</div>
                                     </div>
 
@@ -59,14 +59,14 @@ function Applicants() {
                                         <div>|</div>
                                         <div className='flex gap-2 items-center'><FaMapMarkerAlt />{item.address}</div>
                                     </div>
-                                    
+
                                     <div className='flex flex-wrap gap-4 justify-center'>
                                         <div className='flex gap-2 items-center'><FaGraduationCap />{item.education}</div>
                                         <div>|</div>
                                         <div className='flex gap-2 items-center'><FaBriefcase />{item.experience}</div>
                                     </div>
 
-                                    {[['About', item.about], ['Skills', item.skills], ['Acitivity',item.activity]].map(
+                                    {[['About', item.about], ['Skills', item.skills], ['Acitivity', item.activity]].map(
                                         (usr) => {
                                             return (
                                                 <>

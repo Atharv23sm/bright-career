@@ -50,7 +50,7 @@ function Signup() {
               Login
             </Link>
           </div>
-          
+
           <div className='w-max h-[85%] flex justify-center items-center'>
 
             <form onSubmit={handleSubmit} className='flex flex-col justify-center items-center '>

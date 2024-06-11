@@ -65,7 +65,7 @@ router.post('/login', async (req, res) => {
       if (!checkPassword) {
         return res.json({ status: 'error', message: 'Password is incorrect. Please retry.' });
       }
-      
+
       else {
 
         const token = jwt.sign(

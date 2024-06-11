@@ -36,7 +36,7 @@ function JobDetails() {
                 setIsApplied(true)
                 setIsLoading(false)
             }
-            else{
+            else {
                 setIsLoading(false)
                 setError(response.data.message)
             }
