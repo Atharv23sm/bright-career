@@ -173,6 +173,7 @@ function Profile() {
                         if (confirm('Are you sure? you\'re logging out.')) {
                             sessionStorage.removeItem('token');
                             sessionStorage.removeItem('token2');
+                            sessionStorage.removeItem('token3');
                             navigate('/');
                         }
                     }} className='flex gap-2 items-center ml-1 cursor-pointer'><FaRegWindowClose />Logout</div>
