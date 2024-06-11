@@ -6,7 +6,7 @@ const user = require('../models/users');
 const userinfo = require('../models/userInfo');
 
 router.post('/profile', async (req, res) => {
-    // const img = req.file
+    const img = req.file
     const userInfo = req.body
     const exist_email = await user.findOne({ email: userInfo.email })
   
@@ -22,7 +22,7 @@ router.post('/profile', async (req, res) => {
         email: userInfo.email, role: userInfo.role,
         address: userInfo.address, education: userInfo.education,
         activity: userInfo.activity, skills: userInfo.skills, experience: userInfo.experience,
-        // profilepicname: (img ? img.filename : userInfo.profilepicname)
+        profilepicname: (img ? img.filename : userInfo.profilepicname)
       })
   
     const updatedUser = await user.findOne({ email: userInfo.email })
