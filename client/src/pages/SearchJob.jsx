@@ -29,6 +29,7 @@ function SearchJob() {
   const [searchCity, setSearchCity] = useState("")
   const [filter, setFilter] = useState({ category: 'None', workmode: 'None' })
   const [isSearching, setIsSearching] = useState(false)
+  const [isSearchClicked, setIsSearchClicked] = useState(false)
   const [foundJobs, setFoundJobs] = useState([])
   const [showFilters, setShowFilters] = useState(false)
 
@@ -43,6 +44,7 @@ function SearchJob() {
       const response = await axios.post(`${BASE_URL}/searchjob`, { search: searchKey, searchCity, filter })
       if (response.data.status == 'success') {
         setIsSearching(false)
+        setIsSearchClicked(true)
         setFoundJobs(response.data.found_post)
       }
     }
@@ -59,13 +61,15 @@ function SearchJob() {
             className='bg-black w-[90%] md:w-[60%] p-4 border-[1px] rounded-full'
             onChange={(e) => {
               setSearchKey(e.target.value);
-              e.target.value=="" && setFoundJobs([])
+              setIsSearchClicked(false)
+              e.target.value == "" && setFoundJobs([])
             }}
             value={searchKey} />
           <input type="search" placeholder='location'
             className='bg-black w-[70%] md:w-[30%] p-4 border-[1px] rounded-full'
             onChange={(e) => {
               setSearchCity(e.target.value);
+              setIsSearchClicked(false)
             }}
             value={searchCity} />
 
@@ -79,7 +83,10 @@ function SearchJob() {
                 <hr />
                 <div>Category</div>
                 <select className='p-2 bg-transparent w-full placeholder:text-white'
-                  onChange={(e) => { setFilter({ ...filter, category: e.target.value }); }}>
+                  onChange={(e) => {
+                    setFilter({ ...filter, category: e.target.value });
+                    setIsSearchClicked(false)
+                  }}>
                   {['None', 'Business', 'Education', 'Finance', 'Information Technology', 'Law', 'Management', 'Sales', 'Human Resources', 'Other']
                     .map(
                       (item) => {
@@ -91,7 +98,10 @@ function SearchJob() {
                 </select>
                 <div>Mode</div>
                 <select className='p-2 bg-transparent border-0 w-full placeholder:text-white'
-                  onChange={(e) => { setFilter({ ...filter, workmode: e.target.value }); }}>
+                  onChange={(e) => {
+                    setFilter({ ...filter, workmode: e.target.value });
+                    setIsSearchClicked(false)
+                  }}>
                   {['None', 'Hybrid', 'Onsite', 'Remote']
                     .map(
                       (item) => {
@@ -113,7 +123,7 @@ function SearchJob() {
         <div>
           {isSearching ? <Loading /> :
             <div className='flex flex-col gap-12 py-8 px-[4vw]' >
-              {foundJobs.length > 0 &&
+              {foundJobs.length > 0 ?
                 <>
                   <div className='text-[20px]'>{foundJobs.length} results</div>
                   {
@@ -126,7 +136,7 @@ function SearchJob() {
                     )
                   }
                 </>
-              }
+                : isSearchClicked && <div>No jobs found</div>}
             </div>
           }
         </div>

@@ -59,22 +59,22 @@ function Signup() {
 
               <div className=' mb-[10px]'>
                 Name <br />
-                <input type='text' name='name'
+                <input type='text' name='name' value={name}
                   maxLength={30} required
                   className='w-[230px] md:w-[300px] border-[1px] p-[6px] bg-transparent'
-                  onChange={(e) => { setName(e.target.value.toLowerCase()); setError('') }} />
+                  onChange={(e) => { setName(e.target.value); setError('') }} />
               </div>
 
               <div className=' mb-[10px]  '>
                 Email <br />
-                <input type='email' name='email' required
+                <input type='email' name='email' required value={email}
                   className='w-[230px] md:w-[300px] border-[1px] p-[6px] bg-transparent'
                   onChange={(e) => { setEmail(e.target.value.toLowerCase()); setError('') }} />
               </div>
 
               <div className=' mb-[30px] relative'>
                 Password <br />
-                <input type={passtype} name='password'
+                <input type={passtype} name='password' value={password}
                   maxLength={20} minLength={6} required
                   className='w-[230px] md:w-[300px] border-[1px] p-[6px] bg-transparent'
                   onChange={(e) => { setPassword(e.target.value.toLowerCase()); setError('') }} />
@@ -83,13 +83,11 @@ function Signup() {
                   <FaEye size={20} onClick={showPassword} className='absolute right-[12px] bottom-[9px]' />
                   :
                   <FaEyeSlash size={20} onClick={showPassword} className='absolute right-[12px] bottom-[9px]' />}
-
               </div>
 
               <SubmitButton value='Signup' />
 
             </form>
-
           </div>
         </div>
       }

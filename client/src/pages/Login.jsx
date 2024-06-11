@@ -78,6 +78,7 @@ function Login() {
               <input
                 type='email'
                 name='email'
+                value={email}
                 required
                 className='w-[230px] md:w-[300px] border-[1px] p-[6px] bg-transparent'
                 onChange={(e) => { setEmail(e.target.value.toLowerCase()); setError('') }} />
@@ -90,6 +91,7 @@ function Login() {
                 name='password'
                 maxLength={20}
                 minLength={6}
+                value={password}
                 required
                 className='w-[230px] md:w-[300px] border-[1px] p-[6px] bg-transparent'
                 onChange={(e) => { setPassword(e.target.value.toLowerCase()); setError('') }} />

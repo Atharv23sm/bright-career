@@ -13,6 +13,7 @@ function JobDetails() {
 
     const [isApplied, setIsApplied] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
+    const [error, setError] = useState('')
 
     const token = sessionStorage.getItem('token')
     const token2 = sessionStorage.getItem('token2')
@@ -34,6 +35,10 @@ function JobDetails() {
             if (response.data.status == 'success') {
                 setIsApplied(true)
                 setIsLoading(false)
+            }
+            else{
+                setIsLoading(false)
+                setError(response.data.message)
             }
         }
     }
@@ -99,6 +104,8 @@ function JobDetails() {
                             <div> {loc.state.reqskills} </div>
                             <hr />
 
+                            <div className='text-[#f34] font-bold'>{error}</div>
+
                             {loc.state.hirer_email != decod.user.email
                                 ?
                                 <button
@@ -108,7 +115,6 @@ function JobDetails() {
                                 <button
                                     className=' w-32 p-2 bg-[#fe0] hover:bg-[#ff7] border-[1px] border-black text-black rounded-full cursor-pointer'
                                     onClick={() => navigate('/applicants', { state: loc.state._id })}>See Applicants</button>}
-
                         </div>
                     </div>
                 </div>

@@ -13,7 +13,7 @@ const navigate = useNavigate()
             <div className='p-2 flex flex-col gap-4'>
                 <div className='flex flex-col gap-2'>
                 <div className='text-[28px] font-bold'> {item.jobrole} </div>
-                <div className='text-[20px] flex items-center gap-2'><FaUserAlt/> {item.hirer_name} </div>
+                <div className='text-[20px] flex flex-wrap items-center gap-2'><FaUserAlt/> {item.hirer_name} </div>
                 </div>
                 <div className='flex flex-wrap gap-4 items-center'>
                 <div className='flex gap-2 items-center' > <FaRupeeSign/> {item.payment} </div>

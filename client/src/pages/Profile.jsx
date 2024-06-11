@@ -82,13 +82,16 @@ function Profile() {
                         <form onSubmit={handleSubmit} className='flex flex-col items-center gap-10 bg-[#111] p-4 md:p-10'>
 
                             {!isIpDis ?
-                                <div className='flex items-center gap-5'>
-                                    <input type="file" id='imgUpload' className='hidden'
-                                        accept="image/jpeg, image/jpg"
-                                        onChange={
-                                            e => setImgFile(e.target.files[0])
-                                        } />
-                                    <label htmlFor="imgUpload" className='p-20 border-[1px]'><FaPen></FaPen></label>
+                                // <div className='flex items-center gap-5'>
+                                //     <input type="file" id='imgUpload' className='hidden'
+                                //         accept="image/jpeg, image/jpg"
+                                //         onChange={
+                                //             e => setImgFile(e.target.files[0])
+                                //         } /> 
+                                //      <label htmlFor="imgUpload" className='rounded-full p-20 border-[1px]'><FaPen></FaPen></label>
+                                // </div>
+                                <div className='w-48 h-48 p-4 border-[1px] rounded-full flex text-center items-center'>
+                                    Apologies, profile picture uploading is currently disabled.
                                 </div>
                                 :
                                 <ProfilePic ppname={userInfo.propfilepicname} />
@@ -173,7 +176,7 @@ function Profile() {
                         if (confirm('Are you sure? you\'re logging out.')) {
                             sessionStorage.removeItem('token');
                             sessionStorage.removeItem('token2');
-                            navigate('/login');
+                            navigate('/');
                         }
                     }} className='flex gap-2 items-center ml-1 cursor-pointer'><FaRegWindowClose />Logout</div>
                 </div>

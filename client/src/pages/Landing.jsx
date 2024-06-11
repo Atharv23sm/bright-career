@@ -15,7 +15,7 @@ function Landing() {
             <span className='animate-[opacity_4s] text-black duration-200 '>B.</span>
           </div>
           <div className='overflow-hidden pl-[5vw]'>
-            <div className='text-[12vw] animate-[slide_4s] duration-200 '>Bright</div>
+            <div className='text-[12vw] animate-[slide_4s] duration-200 bg-gradient-to-r from-[#fe0_-90%] to-white text-transparent bg-clip-text'>Bright</div>
           </div>
         </div>
         <div className='overflow-hidden pt-20'>
