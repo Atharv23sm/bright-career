@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react'
-import { FaPen, FaRegWindowClose } from 'react-icons/fa'
+import { FaRegWindowClose } from 'react-icons/fa'
 import { BASE_URL } from '../url'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
@@ -25,9 +25,9 @@ function Profile() {
     const [newActivity, setNewActivity] = useState(userInfo.activity)
     const [newSkills, setNewSkills] = useState(userInfo.skills)
     const [newExperience, setNewExperience] = useState(userInfo.experience)
-    const [newProfilepicname] = useState(userInfo.profilepicname)
+    // const [newProfilepicname] = useState(userInfo.profilepicname)
 
-    const [imgFile, setImgFile] = useState(null)
+    // const [imgFile, setImgFile] = useState(null)
     const [error, setError] = useState('')
     const [isIpDis, setIsIpDis] = useState(true)
     const [isLoading, setIsLoading] = useState(false)
@@ -37,7 +37,7 @@ function Profile() {
         setIsLoading(true)
 
         const formdata = new FormData()
-        formdata.append('file', imgFile)
+        // formdata.append('file', imgFile)
         formdata.append('oldUserEmail', oldUserEmail)
         formdata.append('name', newName)
         formdata.append('about', newAbout)
