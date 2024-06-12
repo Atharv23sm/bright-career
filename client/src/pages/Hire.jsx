@@ -115,7 +115,7 @@ function Hire() {
 
             {isLoading ? <Loading /> :
                 <>
-                    <div className='flex flex-col px-8 md:px-20 pt-24 gap-5'>
+                    <div className='flex flex-col px-4 md:px-20 pt-24 gap-5'>
 
                         <ArrowLeft />
 
@@ -150,7 +150,7 @@ function Hire() {
                                     }
                                 )}
 
-                            <div className='flex justify-between'>
+                            <div className='flex flex-wrap justify-between'>
                                 <input type="submit" value={btnVal} disabled={btnVal == 'Added' && 'disabled'} className={` w-20 p-3 ${btnVal != 'Added' ? 'bg-[#fe0] hover:bg-[#ff7] hover:shadow-[0_0_10px_#fe0]' : 'bg-[#4f4]'}  duration-500 text-black rounded-full cursor-pointer`} />
                                 <input type="reset" value="Reset" className=' w-20 p-3 border-[1px] rounded-full cursor-pointer' />
                             </div>
@@ -159,7 +159,7 @@ function Hire() {
 
                     </div>
 
-                    <div className='flex flex-col gap-12 py-[8vw] px-[4vw] md:px-[6vw] lg:px-[10vw]'>
+                    <div className='flex flex-col gap-10 py-[8vw] px-[4vw] md:px-[6vw] lg:px-[10vw]'>
 
                         <div className='text-[20px]'>Jobs posted by you</div>
 

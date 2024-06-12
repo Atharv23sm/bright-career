@@ -73,13 +73,13 @@ function Profile() {
 
             {isLoading ? <Loading /> :
 
-                <div className='w-full flex flex-col px-4 md:px-[10vw] py-28 gap-10'>
+                <div className='w-full flex flex-col px-3 md:px-[10vw] py-28 gap-10'>
 
                     <ArrowLeft />
 
                     <div>
 
-                        <form onSubmit={handleSubmit} className='flex flex-col items-center gap-10 bg-[#111] p-4 md:p-10'>
+                        <form onSubmit={handleSubmit} className='flex flex-col items-center gap-10 bg-[#111] px-3 py-10 md:p-10'>
 
                             {!isIpDis ?
                                 <div className='flex items-center gap-5'>
@@ -88,10 +88,15 @@ function Profile() {
                                         onChange={
                                             e => setImgFile(e.target.files[0])
                                         } />
-                                    <label htmlFor="imgUpload" className='p-20 border-[1px]'><FaPen></FaPen></label>
+                                    <label htmlFor="imgUpload" className='p-20 border-[1px] rounded-full'><FaPen></FaPen></label>
                                 </div>
                                 :
+                                <div className='w-full flex flex-wrap items-center justify-between'>
                                 <ProfilePic ppname={userInfo.propfilepicname} />
+                                <div onClick={() =>
+                                    setIsIpDis(false)
+                                } className='p-2 mt-2 ml-4 cursor-pointer border-[2px] text-white rounded-full w-max hover:bg-[#444] duration-500'>Edit Profile</div>
+                                </div>
                             }
 
                             <div className='w-full flex flex-col gap-4'>
@@ -148,13 +153,7 @@ function Profile() {
 
                             <div className='text-[#f33] font-bold'>{error}</div>
 
-                            <div className='flex gap-6'>
-                                {isIpDis && (
-                                    <div onClick={() =>
-                                        setIsIpDis(false)
-                                    } className='p-[10px] cursor-pointer border-[2px] text-white rounded-full w-max hover:bg-[#444] duration-500'>Edit Profile</div>
-                                )}
-
+                            <div className='flex flex-wrap gap-6'>
                                 {!isIpDis && (
                                     <button className='p-[10px] cursor-pointer bg-[#fe0] hover:bg-[#ff7] duration-500 border-[1px] border-black text-black rounded-full w-max' type='submit'
                                     >Save</button>
