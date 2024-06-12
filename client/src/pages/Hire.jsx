@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from 'react'
 import { jwtDecode } from 'jwt-decode'
-import { Navigate, useNavigate } from 'react-router-dom'
-import { FaMapMarkerAlt, FaCalendar, FaRupeeSign, FaBuilding, FaMailBulk, FaAngleDown, FaBriefcase } from 'react-icons/fa'
+import { Navigate } from 'react-router-dom'
+import { FaAngleDown, FaTrash } from 'react-icons/fa'
 import { BASE_URL } from '../url'
 import Header from '../partials/Header'
 import ArrowLeft from '../component/ArrowLeft'
@@ -9,6 +9,7 @@ import UserContext from '../context/UserContext'
 import Footer from '../partials/Footer'
 import axios from 'axios'
 import Loading from '../Loading'
+import Card from '../component/Card'
 
 function Hire() {
 
@@ -87,9 +88,9 @@ function Hire() {
     }
 
     const deletePost = async (id, hirer_email) => {
-        setIsLoading(true)
 
-        if (confirm('Are you sure?')) {
+        if (confirm('Are you sure, you want to delete?')) {
+            setIsLoading(true)
             try {
                 const response = await axios.delete(`${BASE_URL}/deletejobpost`, {
                     data: { id, hirer_email }
@@ -105,8 +106,6 @@ function Hire() {
             }
         };
     }
-
-    const navigate = useNavigate()
 
     return token && token2 ?
 
@@ -160,7 +159,7 @@ function Hire() {
 
                     </div>
 
-                    <div className='flex flex-col gap-12 py-[8vw] px-[4vw]'>
+                    <div className='flex flex-col gap-12 py-[8vw] px-[4vw] md:px-[6vw] lg:px-[10vw]'>
 
                         <div className='text-[20px]'>Jobs posted by you</div>
 
@@ -168,51 +167,10 @@ function Hire() {
                             hiringPostData.slice(0, showcards).map(
                                 (item) => {
                                     return (
-                                        <div className='p-4 md:p-10 bg-[#111] flex flex-col gap-4' key={item._id}>
-
-                                            <div className='text-[28px] font-bold'> {item.jobrole} </div>
-                                            <div className='text-[20px] '> {item.hirer_name} </div>
-                                            <hr />
-                                            <div className='flex flex-wrap gap-4 items-center'>
-                                                <div className='flex gap-2 items-center'><FaRupeeSign /> {item.payment} </div>
-                                                <div>|</div>
-                                                <div className='flex gap-2 items-center'><FaBriefcase /> {item.experience} </div>
-                                                <div>|</div>
-                                                <div className='flex gap-2 items-center'> <FaBuilding /> {item.workmode} </div>
-
-                                            </div>
-
-                                            <div className='flex flex-wrap gap-4 items-center'>
-
-                                                <div className='flex gap-2 items-center'><FaMapMarkerAlt /> {item.address} </div>
-                                                <div>|</div>
-
-                                                <div className='flex gap-2 items-center'><FaMailBulk /> {item.hirer_email} </div>
-
-                                                <div>|</div>
-                                                <div className='flex gap-2 items-center'><FaCalendar /> {item.h_date.substring(0, 10)} </div>
-                                            </div>
-                                            <hr />
-                                            <div className='font-bold tracking-wide'>About</div>
-                                            <div> {item.about} </div>
-
-                                            <div className='font-bold tracking-wide'>Skills Required</div>
-                                            <div> {item.reqskills} </div>
-                                            <hr />
-
-                                            <div className='flex justify-between'>
-                                                <button
-                                                    className=' w-32 p-2 bg-[#fe0] hover:bg-[#ff7] duration-500 text-black rounded-full cursor-pointer'
-                                                    onClick={() => navigate('/applicants', { state: item._id })}
-                                                >See Applicants</button>
-
-                                                <button
-                                                    className=' w-32 p-2 bg-[#e00] text-white rounded-full cursor-pointer'
-                                                    onClick={() => deletePost(item._id, item.hirer_email)}
-                                                >Remove post</button>
-
-                                            </div>
-
+                                        <div className='relative'>
+                                            <Card item={item} />
+                                            <div className='cursor-pointer p-2 border-[1px] absolute backdrop-blur right-2 -mt-10 hover:bg-[#f00] duration-200'
+                                                onClick={() => deletePost(item._id, item.hirer_email)}><FaTrash/></div>
                                         </div>
                                     )
                                 }

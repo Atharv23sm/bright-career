@@ -5,7 +5,7 @@ function Card({item}) {
 const navigate = useNavigate()
 
     return (
-        <div className='p-[2vh] bg-[#444] flex flex-col gap-4 cursor-pointer hover:bg-[#666] hover:shadow-lg hover:shadow-[#111] hover:rounded-md duration-1000'
+        <div className='p-[2vh] pr-10 bg-[#444] flex flex-col gap-4 cursor-pointer hover:bg-[#666] hover:shadow-lg hover:shadow-[#111] hover:rounded-md duration-1000'
             onClick={() => {
                 navigate('/jobdetails', { state: item })
             }} key={item._id}>
