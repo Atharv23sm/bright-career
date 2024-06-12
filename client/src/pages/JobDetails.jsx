@@ -67,13 +67,13 @@ function JobDetails() {
 
             {isLoading ? <Loading /> :
 
-                <div className='px-4 md:px-10 py-24'>
+                <div className='px-3 md:px-10 py-24'>
 
                     <ArrowLeft />
 
-                    <div className='flex flex-col gap-12 py-[4vw] px-[4vw]' >
+                    <div className='flex flex-col gap-12 py-[4vw]' >
 
-                        <div className='p-[4vh] bg-[#444] flex flex-col gap-4'>
+                        <div className='p-3 md:p-6 bg-[#444] flex flex-col gap-4'>
 
                             <div className='text-[28px] font-bold'> {loc.state.jobrole} </div>
                             <div className='text-[20px] flex items-center gap-2 '> <FaUserAlt /> {loc.state.hirer_name} </div>
