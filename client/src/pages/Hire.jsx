@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from 'react'
 import { jwtDecode } from 'jwt-decode'
 import { Navigate } from 'react-router-dom'
-import { FaAngleDown, FaTrash } from 'react-icons/fa'
+import { FaAngleDown, FaAngleUp, FaTrash } from 'react-icons/fa'
 import { BASE_URL } from '../url'
 import Header from '../partials/Header'
 import ArrowLeft from '../component/ArrowLeft'
@@ -170,13 +170,15 @@ function Hire() {
                                         <div className='relative'>
                                             <Card item={item} />
                                             <div className='cursor-pointer p-2 border-[1px] absolute backdrop-blur right-2 -mt-10 hover:bg-[#f00] duration-200'
-                                                onClick={() => deletePost(item._id, item.hirer_email)}><FaTrash/></div>
+                                                onClick={() => deletePost(item._id, item.hirer_email)}><FaTrash /></div>
                                         </div>
                                     )
                                 }
                             )
                         }
-                        <FaAngleDown size={24} onClick={() => { setShowcards(showcards + 4) }} className='cursor-pointer' />
+                        {showcards < hiringPostData.length ?
+                            <FaAngleDown size={24} onClick={() => { setShowcards(showcards + 4) }} className='cursor-pointer' />
+                            : <FaAngleUp size={24} onClick={() => { setShowcards(4) }} className='cursor-pointer' />}
                     </div>
                 </>
             }

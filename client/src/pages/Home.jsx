@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react'
 import { Link, Navigate } from 'react-router-dom'
-import {FaArrowAltCircleUp , FaAngleDown, } from 'react-icons/fa'
+import {FaArrowAltCircleUp , FaAngleDown, FaAngleUp, } from 'react-icons/fa'
 import Header from '../partials/Header'
 import UserContext from '../context/UserContext'
 import Footer from '../partials/Footer'
@@ -37,7 +37,9 @@ function Home() {
                 }
               )
             }
+            {showcards<globeHiringList.length ?
             <FaAngleDown size={24} onClick={() => { setShowcards(showcards + 4) }} className='cursor-pointer' />
+          : <FaAngleUp size={24} onClick={() => { setShowcards(showcards - 4) }} className='cursor-pointer'/>}
 
           </div>
 
