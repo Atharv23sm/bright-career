@@ -127,7 +127,7 @@ router.post('/apply', async (req, res) => {
     }
 
     else {
-      return res.json({ status: 'error', message: 'Jobpost is unavailable' })
+      return res.json({ status: 'error', message: 'Something went wrong.' })
     }
 
 
