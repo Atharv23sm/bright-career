@@ -79,16 +79,17 @@ function Profile() {
 
                     <div>
 
-                        <form onSubmit={handleSubmit} className='flex flex-col items-center gap-10 bg-[#111] px-3 py-10 md:p-10'>
+                        <form onSubmit={handleSubmit} className='flex flex-col gap-10 bg-[#111] px-3 py-10 md:p-10'>
 
                             {!isIpDis ?
                                 <div className='flex items-center gap-5'>
-                                    <input type="file" id='imgUpload' className='hidden'
+                                    {/* <input type="file" id='imgUpload' className='hidden'
                                         accept="image/jpeg, image/jpg"
                                         onChange={
                                             e => setImgFile(e.target.files[0])
-                                        } />
-                                    <label htmlFor="imgUpload" className='p-20 border-[1px] rounded-full'><FaPen></FaPen></label>
+                                        } /> */}
+                                    {/* <label htmlFor="imgUpload" className='p-20 border-[1px] rounded-full'><FaPen></FaPen></label> */}
+                                    <div className='p-2 w-48 h-48 text-sm border-[1px] rounded-full flex items-center justify-center text-center'>Apologies,<br/>uploading profile picture is currently disabled.</div>
                                 </div>
                                 :
                                 <div className='w-full flex flex-wrap items-center justify-between'>
