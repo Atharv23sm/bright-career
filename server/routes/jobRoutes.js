@@ -114,9 +114,10 @@ router.post('/apply', async (req, res) => {
 
   try {
 
-    const existjob = await hiringdb.find({ _id: jobpostId })
+    const existjob = await hiringdb.findOne({ _id: jobpostId })
 
     if (existjob.hirer_email == hirer_email) {
+
       await applicantdb.create({
         jobpostId,
         hirer_email,

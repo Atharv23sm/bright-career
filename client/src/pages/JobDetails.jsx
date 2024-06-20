@@ -39,6 +39,7 @@ function JobDetails() {
             else {
                 setIsLoading(false)
                 setError(response.data.message)
+                setTimeout(()=>setError(""),2500)
             }
         }
     }
